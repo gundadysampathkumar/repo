@@ -1,7 +1,64 @@
-<project>
-  <modelVersion>4.0.0</modelVersion>
- 
-  <groupId>vprofile-v1</groupId>
-  <artifactId>vprofile-v1</artifactId>
-  <version>1.0</version>
-</project>
+<artifactId>demo-service</artifactId>
+<name>demo-service</name>
+<description>service demo</description>
+<packaging>war</packaging>
+.
+.
+.
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.6</version>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>${start-class}</mainClass>
+                    </manifest>
+                </archive>
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                    <exclude>**/*.xml</exclude>
+                </excludes>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+                <execution>
+                    <id>default-war</id>
+                    <phase>prepare-package</phase>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+                <finalName>${pom.artifactId}</finalName>
+                <appendAssemblyId>false</appendAssemblyId>
+                <descriptor>src/main/assembly/assembly.xml</descriptor>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>create-archive</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
